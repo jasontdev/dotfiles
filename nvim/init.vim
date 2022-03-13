@@ -29,6 +29,7 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
+Plug 'joshdick/onedark.vim'
 
 call plug#end()
 
@@ -38,7 +39,7 @@ augroup ReactFiletypes
   autocmd BufRead,BufNewFile *.tsx set filetype=typescriptreact
 augroup END
 
-colorscheme gruvbox
+colorscheme onedark
 
 let mapleader=" "
 nnoremap <leader>j <C-W>j
