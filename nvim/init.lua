@@ -32,10 +32,26 @@ vim.keymap.set('n', '<leader>fb', require('telescope.builtin').buffers, {buffer 
 vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags, {buffer = 0})
 vim.keymap.set('n', '<leader>fd', '<cmd>Telescope diagnostics<cr>', {buffer = 0})
 
+-- nvim-cmp setup
+vim.opt.completeopt = {'menu','menuone','noselect'}
+local cmp = require('cmp')
+cmp.setup({
+    mapping = cmp.mapping.preset.insert({
+        ['<C-Space>'] = cmp.mapping.complete(),
+        ['<C-e>'] = cmp.mapping.abort(),
+        ['<CR>'] = cmp.mapping.confirm({select = true})
+    }),
+    sources = cmp.config.sources({
+        { name = 'nvim_lsp' }
+    })
+})
+
 -- LSP setup
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 local servers = { 'gopls', 'tsserver' }
 for _, lsp in pairs(servers) do
     require('lspconfig')[lsp].setup{
+        capabilities = capabilities,
         on_attach = function()
             vim.keymap.set('n', 'K', vim.lsp.buf.hover, {buffer = 0})
             vim.keymap.set('n', '<leader>gd', vim.lsp.buf.definition, {buffer = 0})
@@ -53,6 +69,8 @@ return require('packer').startup(function()
     use 'nvim-lua/plenary.nvim'
     use 'nvim-telescope/telescope.nvim'
     use 'neovim/nvim-lspconfig'
+    use 'hrsh7th/nvim-cmp'
+    use 'hrsh7th/cmp-nvim-lsp'
     use 'joshdick/onedark.vim'
     use 'dracula/vim'
 end)
