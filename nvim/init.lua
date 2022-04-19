@@ -12,7 +12,6 @@ vim.o.wrap = false
 vim.o.smartcase = true
 vim.o.swapfile = false
 vim.o.backup = false
-vim.o.undodir = '~/.vim/undodir'
 vim.o.undofile = true
 vim.o.incsearch = true
 vim.o.scrolloff = 8
@@ -20,6 +19,7 @@ vim.o.colorcolumn = 80
 vim.o.signcolumn = 'yes' 
 vim.cmd('syntax on')
 vim.cmd('colorscheme onedark')
+vim.cmd('set undodir=~/.vim/undo-dir')
 
 -- packer
 require('packer').startup(function()
