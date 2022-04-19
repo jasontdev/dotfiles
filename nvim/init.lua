@@ -21,6 +21,14 @@ vim.cmd('syntax on')
 vim.cmd('colorscheme onedark')
 vim.cmd('set undodir=~/.vim/undo-dir')
 
+vim.diagnostic.config({
+    virtual_text = false,
+    float = {
+        source = 'always',
+        border = border
+  },
+})
+
 -- packer
 require('packer').startup(function()
 	use 'wbthomason/packer.nvim'
@@ -32,12 +40,35 @@ require('packer').startup(function()
     use 'hrsh7th/cmp-nvim-lsp'
     use 'joshdick/onedark.vim'
     use 'dracula/vim'
+
+    use {
+        "folke/trouble.nvim",
+        config = function()
+            require("trouble").setup {
+                icons = false,
+                fold_open = "v",
+                fold_closed = ">",
+                indent_lines = false,
+                signs = {
+                    error = "error",
+                    warning = "warn",
+                    hint = "hint",
+                    information = "info"
+                },
+                use_diagnostic_signs = false
+            }
+        end
+    }
 end)
 
 -- Set leader to space
 options = {noremap = true}
 vim.keymap.set('n', '<Space>', '', options)
 vim.g.mapleader = ' '
+
+-- Trouble remaps
+vim.keymap.set('n', '<leader>td', '<cmd>Trouble document_diagnostics<cr>', {buffer = 0});
+vim.keymap.set('n', '<leader>tw', '<cmd>Trouble workspace_diagnostics<cr>', {buffer = 0});
 
 -- Remaps for telescope
 vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, {buffer = 0})
@@ -71,8 +102,8 @@ for _, lsp in pairs(servers) do
             vim.keymap.set('n', '<leader>gd', vim.lsp.buf.definition, {buffer = 0})
             vim.keymap.set('n', '<leader>gy', vim.lsp.buf.type_definition, {buffer = 0})
             vim.keymap.set('n', '<leader>gi', vim.lsp.buf.implementation, {buffer = 0})
-            vim.keymap.set('n', '<leader>gj', vim.diagnostic.goto_next, {buffer = 0})
-            vim.keymap.set('n', '<leader>gk', vim.diagnostic.goto_prev, {buffer = 0})
+            vim.keymap.set('n', '<leader>dn', vim.diagnostic.goto_next, {buffer = 0})
+            vim.keymap.set('n', '<leader>dp', vim.diagnostic.goto_prev, {buffer = 0})
         end,
     }
 end
