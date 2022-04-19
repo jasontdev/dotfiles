@@ -1,3 +1,4 @@
+-- Options
 vim.o.tabstop = 4 
 vim.o.softtabstop = 4
 vim.o.shiftwidth = 4
@@ -19,6 +20,19 @@ vim.o.colorcolumn = 80
 vim.o.signcolumn = 'yes' 
 vim.cmd('syntax on')
 vim.cmd('colorscheme onedark')
+
+-- packer
+require('packer').startup(function()
+	use 'wbthomason/packer.nvim'
+	use 'tpope/vim-surround'
+    use 'nvim-lua/plenary.nvim'
+    use 'nvim-telescope/telescope.nvim'
+    use 'neovim/nvim-lspconfig'
+    use 'hrsh7th/nvim-cmp'
+    use 'hrsh7th/cmp-nvim-lsp'
+    use 'joshdick/onedark.vim'
+    use 'dracula/vim'
+end)
 
 -- Set leader to space
 options = {noremap = true}
@@ -63,15 +77,4 @@ for _, lsp in pairs(servers) do
     }
 end
 
-return require('packer').startup(function()
-	use 'wbthomason/packer.nvim'
-	use 'tpope/vim-surround'
-    use 'nvim-lua/plenary.nvim'
-    use 'nvim-telescope/telescope.nvim'
-    use 'neovim/nvim-lspconfig'
-    use 'hrsh7th/nvim-cmp'
-    use 'hrsh7th/cmp-nvim-lsp'
-    use 'joshdick/onedark.vim'
-    use 'dracula/vim'
-end)
 
