@@ -20,20 +20,39 @@ vim.o.signcolumn = 'yes'
 vim.cmd('syntax on')
 vim.cmd('colorscheme onedark')
 
-local map = vim.api.nvim_set_keymap
-map('n', '<Space>', '', {})
-vim.g.mapleader = ' '
+-- Set leader to space
 options = {noremap = true}
-map('n', '<leader>ff', '<cmd>lua require(\'telescope.builtin\').find_files()<cr>', options)
-map('n', '<leader>fg', '<cmd>lua require(\'telescope.builtin\').live_grep()<cr>', options)
-map('n', '<leader>fb', '<cmd>lua require(\'telescope.builtin\').buffers()<cr>', options)
-map('n', '<leader>fh', '<cmd>lua require(\'telescope.builtin\').help_tags()<cr>', options)
+vim.keymap.set('n', '<Space>', '', options)
+vim.g.mapleader = ' '
+
+-- Remaps for telescope
+vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, {buffer = 0})
+vim.keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep, {buffer = 0})
+vim.keymap.set('n', '<leader>fb', require('telescope.builtin').buffers, {buffer = 0})
+vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags, {buffer = 0})
+vim.keymap.set('n', '<leader>fd', '<cmd>Telescope diagnostics<cr>', {buffer = 0})
+
+-- LSP setup
+local servers = { 'gopls', 'tsserver' }
+for _, lsp in pairs(servers) do
+    require('lspconfig')[lsp].setup{
+        on_attach = function()
+            vim.keymap.set('n', 'K', vim.lsp.buf.hover, {buffer = 0})
+            vim.keymap.set('n', '<leader>gd', vim.lsp.buf.definition, {buffer = 0})
+            vim.keymap.set('n', '<leader>gy', vim.lsp.buf.type_definition, {buffer = 0})
+            vim.keymap.set('n', '<leader>gi', vim.lsp.buf.implementation, {buffer = 0})
+            vim.keymap.set('n', '<leader>gj', vim.diagnostic.goto_next, {buffer = 0})
+            vim.keymap.set('n', '<leader>gk', vim.diagnostic.goto_prev, {buffer = 0})
+        end,
+    }
+end
 
 return require('packer').startup(function()
 	use 'wbthomason/packer.nvim'
 	use 'tpope/vim-surround'
     use 'nvim-lua/plenary.nvim'
     use 'nvim-telescope/telescope.nvim'
+    use 'neovim/nvim-lspconfig'
     use 'joshdick/onedark.vim'
     use 'dracula/vim'
 end)
