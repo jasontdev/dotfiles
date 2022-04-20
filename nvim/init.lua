@@ -67,15 +67,15 @@ vim.keymap.set('n', '<Space>', '', options)
 vim.g.mapleader = ' '
 
 -- Trouble remaps
-vim.keymap.set('n', '<leader>td', '<cmd>Trouble document_diagnostics<cr>', {buffer = 0});
-vim.keymap.set('n', '<leader>tw', '<cmd>Trouble workspace_diagnostics<cr>', {buffer = 0});
+vim.keymap.set('n', '<leader>t', '<cmd>Trouble document_diagnostics<cr>', options);
+vim.keymap.set('n', '<leader>tw', '<cmd>Trouble workspace_diagnostics<cr>', options);
 
 -- Remaps for telescope
-vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, {buffer = 0})
-vim.keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep, {buffer = 0})
-vim.keymap.set('n', '<leader>fb', require('telescope.builtin').buffers, {buffer = 0})
-vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags, {buffer = 0})
-vim.keymap.set('n', '<leader>fd', '<cmd>Telescope diagnostics<cr>', {buffer = 0})
+vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, options)
+vim.keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep, options)
+vim.keymap.set('n', '<leader>fb', require('telescope.builtin').buffers, options)
+vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags, options)
+vim.keymap.set('n', '<leader>fd', '<cmd>Telescope diagnostics<cr>', options)
 
 -- nvim-cmp setup
 vim.opt.completeopt = {'menu','menuone','noselect'}
