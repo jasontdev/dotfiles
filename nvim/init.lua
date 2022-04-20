@@ -38,6 +38,8 @@ require('packer').startup(function()
     use 'neovim/nvim-lspconfig'
     use 'hrsh7th/nvim-cmp'
     use 'hrsh7th/cmp-nvim-lsp'
+    use 'L3MON4D3/LuaSnip'
+    use 'saadparwaiz1/cmp_luasnip'
     use 'joshdick/onedark.vim'
     use 'dracula/vim'
 
@@ -81,13 +83,19 @@ vim.keymap.set('n', '<leader>fd', '<cmd>Telescope diagnostics<cr>', options)
 vim.opt.completeopt = {'menu','menuone','noselect'}
 local cmp = require('cmp')
 cmp.setup({
+    snippet = {
+        expand = function(args)
+            require('luasnip').lsp_expand(args.body)
+        end
+    },
     mapping = cmp.mapping.preset.insert({
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<C-e>'] = cmp.mapping.abort(),
         ['<CR>'] = cmp.mapping.confirm({select = true})
     }),
     sources = cmp.config.sources({
-        { name = 'nvim_lsp' }
+        { name = 'nvim_lsp' },
+        { name = 'luasnip' },
     })
 })
 
