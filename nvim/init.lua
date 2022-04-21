@@ -42,6 +42,7 @@ require('packer').startup(function()
     use 'saadparwaiz1/cmp_luasnip'
     use 'joshdick/onedark.vim'
     use 'dracula/vim'
+    use 'jose-elias-alvarez/null-ls.nvim'
 
     use {
         "folke/trouble.nvim",
@@ -112,8 +113,18 @@ for _, lsp in pairs(servers) do
             vim.keymap.set('n', '<leader>gi', vim.lsp.buf.implementation, {buffer = 0})
             vim.keymap.set('n', '<leader>dn', vim.diagnostic.goto_next, {buffer = 0})
             vim.keymap.set('n', '<leader>dp', vim.diagnostic.goto_prev, {buffer = 0})
+            vim.keymap.set('n', '<leader>lf', vim.lsp.buf.formatting, {buffer = 0})
+            vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, {buffer = 0})
         end,
     }
 end
 
-
+-- null-ls.nvim setup
+require("null-ls").setup({
+    sources = {
+        require("null-ls").builtins.formatting.stylua,
+        require("null-ls").builtins.diagnostics.eslint,
+        require("null-ls").builtins.completion.spell,
+        require("null-ls").builtins.formatting.prettier
+    },
+})
