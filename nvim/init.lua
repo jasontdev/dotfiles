@@ -20,6 +20,7 @@ vim.o.signcolumn = 'yes'
 vim.cmd('syntax on')
 vim.cmd('colorscheme onedark')
 vim.cmd('set undodir=~/.vim/undo-dir')
+vim.cmd('autocmd Filetype javascript,html,javascript,typescriptreact,typescript,css,json setlocal ts=2 sw=2 expandtab')
 
 vim.diagnostic.config({
     virtual_text = false,
