@@ -21,15 +21,6 @@ vim.cmd('syntax on')
 vim.cmd('colorscheme onedark')
 vim.cmd('set undodir=~/.vim/undo-dir')
 vim.cmd('autocmd Filetype javascript,html,javascript,typescriptreact,typescript,css,json setlocal ts=2 sw=2 expandtab')
-
-vim.diagnostic.config({
-    virtual_text = false,
-    float = {
-        source = 'always',
-        border = border
-  },
-})
-
 vim.cmd('autocmd Filetype javascript,html,javascript,typescriptreact,typescript,css,json setlocal ts=2 sw=2 sts=2')
 
 -- packer
@@ -46,25 +37,6 @@ require('packer').startup(function()
     use 'joshdick/onedark.vim'
     use 'dracula/vim'
     use 'jose-elias-alvarez/null-ls.nvim'
-
-    use {
-        "folke/trouble.nvim",
-        config = function()
-            require("trouble").setup {
-                icons = false,
-                fold_open = "v",
-                fold_closed = ">",
-                indent_lines = false,
-                signs = {
-                    error = "error",
-                    warning = "warn",
-                    hint = "hint",
-                    information = "info"
-                },
-                use_diagnostic_signs = false
-            }
-        end
-    }
 end)
 
 -- Set leader to space
@@ -114,10 +86,10 @@ for _, lsp in pairs(servers) do
             vim.keymap.set('n', '<leader>gd', vim.lsp.buf.definition, {buffer = 0})
             vim.keymap.set('n', '<leader>gy', vim.lsp.buf.type_definition, {buffer = 0})
             vim.keymap.set('n', '<leader>gi', vim.lsp.buf.implementation, {buffer = 0})
-            vim.keymap.set('n', '<leader>ldn', vim.diagnostic.goto_next, {buffer = 0})
-            vim.keymap.set('n', '<leader>ldp', vim.diagnostic.goto_prev, {buffer = 0})
+            vim.keymap.set('n', '<leader>]d', vim.diagnostic.goto_next, {buffer = 0})
+            vim.keymap.set('n', '<leader>[d', vim.diagnostic.goto_prev, {buffer = 0})
             vim.keymap.set('n', '<leader>lf', vim.lsp.buf.formatting, {buffer = 0})
-            vim.keymap.set('n', '<leader>lc', vim.lsp.buf.code_action, {buffer = 0})
+            vim.keymap.set('n', '<leader>la', vim.lsp.buf.code_action, {buffer = 0})
         end,
     }
 end
