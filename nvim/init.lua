@@ -37,6 +37,7 @@ require('packer').startup(function()
     use 'joshdick/onedark.vim'
     use 'dracula/vim'
     use 'jose-elias-alvarez/null-ls.nvim'
+    use 'nvim-treesitter/nvim-treesitter'
 end)
 
 -- Set leader to space
@@ -77,7 +78,7 @@ cmp.setup({
 
 -- LSP setup
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-local servers = { 'gopls', 'tsserver' }
+local servers = { 'gopls', 'tsserver', 'svelte' }
 for _, lsp in pairs(servers) do
     require('lspconfig')[lsp].setup{
         capabilities = capabilities,
@@ -98,9 +99,17 @@ end
 require("null-ls").setup({
     sources = {
         require("null-ls").builtins.formatting.stylua,
-        require("null-ls").builtins.diagnostics.eslint,
-        require("null-ls").builtins.completion.spell,
         require("null-ls").builtins.formatting.prettier,
         require("null-ls").builtins.formatting.gofmt
     },
 })
+
+local configs = require'nvim-treesitter.configs'
+configs.setup {
+    highlight = {
+        enable = true,
+    },
+    indent = {
+        enable = false,
+    }
+}
