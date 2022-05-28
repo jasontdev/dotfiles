@@ -20,8 +20,7 @@ vim.o.signcolumn = 'yes'
 vim.cmd('syntax on')
 vim.cmd('colorscheme onedark')
 vim.cmd('set undodir=~/.vim/undo-dir')
-vim.cmd('autocmd Filetype javascript,html,javascript,typescriptreact,typescript,css,json setlocal ts=2 sw=2 expandtab')
-vim.cmd('autocmd Filetype javascript,html,javascript,typescriptreact,typescript,css,json setlocal ts=2 sw=2 sts=2')
+vim.cmd('autocmd Filetype svelte,javascript,html,javascript,typescriptreact,typescript,css,json setlocal ts=2 sw=2 sts=2 expandtab')
 
 -- packer
 require('packer').startup(function()
